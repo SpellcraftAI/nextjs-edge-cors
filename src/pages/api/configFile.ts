@@ -6,7 +6,7 @@ export default function Cors () {
     {
       status: 200,
       headers: {
-        TEST_ORIGINAL_HEADERS: "PASS"
+        "Test-Original-Headers": "PASS"
       }
     }
   );

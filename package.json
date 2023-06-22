@@ -1,9 +1,9 @@
 {
-  "name": "template",
-  "version": "0.0.1",
+  "name": "nextjs-edge-cors",
+  "version": "0.0.3",
   "license": "MIT",
   "type": "module",
-  "platform": "browser",
+  "platform": "node",
   "engines": {
     "node": ">=14"
   },
@@ -16,14 +16,15 @@
     ".": "./dist/index.js"
   },
   "scripts": {
+    "export-docs": "pnpm typedoc src",
     "export": "tsmodule build",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint --fix",
     "pretest": "pnpm build",
     "test": "ava",
-    "prepublishOnly": "pnpm test && pnpm export"
+    "prepublishOnly": "pnpm test",
+    "lint": "next lint --fix"
   },
   "devDependencies": {
     "@tsmodule/react": "^12.0.0",
@@ -47,6 +48,7 @@
     "postcss": "^8.4.24",
     "postcss-import": "^15.1.0",
     "tailwindcss": "^3.3.2",
+    "typedoc": "^0.24.8",
     "typescript": "^5.1.3"
   },
   "style": "dist/bundle.css",

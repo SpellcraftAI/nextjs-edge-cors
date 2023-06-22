@@ -1,48 +1,55 @@
-# `tsmodule` component library
+### Enable CORS for Next.js Edge
 
-This is a [`tsmodule`](https://github.com/tsmodule/tsmodule) component library
-developed and previewed with Next.js.
+The easiest way to enable CORS is in your Next config, per the
+[docs](https://vercel.com/guides/how-to-enable-cors):
 
-### Develop
+```js
+// next.config.mjs
 
-To start the Next server and develop your components, use `next dev` or the
-`pnpm dev` script:
-
-```bash
-pnpm dev
-# calls `next dev`
+export const headers = () => {
+  return [
+    {
+      source: "/api/cors/:path*",
+      headers: [
+        { key: "Access-Control-Allow-Credentials", value: "true" },
+        { key: "Access-Control-Allow-Origin", value: "*" },
+        { key: "Access-Control-Allow-Methods", value: "GET,OPTIONS,PATCH,DELETE,POST,PUT" },
+        { key: "Access-Control-Allow-Headers", value: "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version" },
+      ]
+    }
+  ];
+};
 ```
 
-### Export and publish
+Alternatively, you can use the `withCors()` Middleware wrapper:
 
-To export your component library, use `tsmodule build` or the `pnpm export`
-script:
+```ts
+// src/middleware.ts
 
-```bash
-pnpm export
-# calls `tsmodule build`
+export const middleware = withCors();
+
+export const config = {
+  matcher: ["/api/cors/:path*"]
+};
 ```
 
-You can then publish to NPM:
+### Advanced
 
-```bash
-pnpm publish
+You can wrap existing Middleware or pass CORS options to `withCors()`:
+
+```ts
+export const middleware = withCors(
+  otherMiddleware,
+  {
+    /**
+     * Only allow CORS requests from Google.com. Comma separate for multiple
+     * values.
+     */
+    origin: "https://www.google.com"
+  }
+);
+
+export const config = {
+  matcher: ["/api/cors/:path*"]
+};
 ```
-
-#### Importing from your component library
-
-To reuse your components:
-
-  1. Import your component styles via `import "my-library/styles"`.
-  2. Import your component and render it via `import { MyComponent } from
-     "my-library/MyComponent`.
-
-#### Footnotes
-
-Styles are exported in `dist/`, and are also bundled to `dist/bundle.css` from
-the entrypoint given in the `style` package.json.
-
-The default behavior is to export all component styles, i.e.
-`src/styles/components/index.css ➞ dist/bundle.css`.  This can be overridden
-with tsmodule's `--styles` flag, i.e. `tsmodule build --styles
-src/styles/index.css` (which would include all styles in emitted bundle).
