@@ -25,6 +25,7 @@ Alternatively, you can use the `withCors()` Middleware wrapper:
 
 ```ts
 // src/middleware.ts
+import { withCors } from "nextjs-edge-cors"
 
 export const middleware = withCors();
 
@@ -38,6 +39,8 @@ export const config = {
 You can wrap existing Middleware or pass CORS options to `withCors()`:
 
 ```ts
+import { withCors } from "nextjs-edge-cors"
+
 export const middleware = withCors(
   otherMiddleware,
   {
