@@ -13,10 +13,7 @@
   ],
   "exports": {
     "./package.json": "./package.json",
-    ".": "./dist/index.js",
-    "./*": "./dist/components/*/index.js",
-    "./styles": "./dist/bundle.css",
-    "./styles/*": "./dist/components/*/index.css"
+    ".": "./dist/index.js"
   },
   "scripts": {
     "export": "tsmodule build",
