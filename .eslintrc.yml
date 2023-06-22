@@ -20,6 +20,9 @@ plugins:
   - react
 
 rules:
+  quotes: off
+  semi: off
+  indent: off
   "@typescript-eslint/explicit-function-return-type":
     - off
   "@typescript-eslint/quotes":
