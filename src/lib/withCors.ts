@@ -1,5 +1,6 @@
-import { type NextMiddleware, NextResponse } from "next/server";
+import type { NextMiddleware } from "next/server";
 import type { CorsOptions } from "./types";
+import { NextResponse } from "next/dist/server/web/spec-extension/response";
 import { cors } from "./cors";
 
 export const withCors = (

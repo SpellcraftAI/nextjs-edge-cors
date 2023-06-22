@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse } from "next/dist/server/web/spec-extension/response";
 import { withCors } from "./lib/withCors";
 /**
  * Demo: Cross-origin will only be accessible from google.com. Set to "*" (or
