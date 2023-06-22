@@ -18,6 +18,7 @@
   "scripts": {
     "export-docs": "pnpm typedoc src",
     "export": "tsmodule build",
+    "cjs": "tsmodule build -b -f cjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

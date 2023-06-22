@@ -13,3 +13,14 @@ export const headers = () => {
     }
   ];
 };
+
+export const trailingSlash = true;
+
+export const rewrites = () => {
+  return [
+    {
+      source: "/:path*",
+      destination: "/:path*/index.html" // The :path parameter is used here so will not be automatically passed in the query
+    }
+  ];
+};

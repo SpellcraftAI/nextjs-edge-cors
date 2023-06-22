@@ -10,7 +10,16 @@ export default function Home () {
       </Head>
 
       <main>
-        <h1>Nothing here</h1>
+        <h1>Next.js CORS Demo</h1>
+
+        <p>
+          Use these URLs to test:
+        </p>
+
+        <div>
+          <pre>http://localhost:3000/api/configFile</pre>
+          <pre>http://localhost:3000/api/middleware</pre>
+        </div>
       </main>
     </>
   );
