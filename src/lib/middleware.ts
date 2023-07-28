@@ -3,10 +3,20 @@ import type { CorsOptions } from "./types";
 import { NextResponse } from "next/dist/server/web/spec-extension/response";
 import { cors } from "./cors";
 
-export const withCors = (
-  middleware?: NextMiddleware,
-  options?: CorsOptions
-): NextMiddleware => {
+export interface CorsMiddlewareOptions extends CorsOptions {
+  middleware?: NextMiddleware
+}
+
+/**
+ * Wraps requests with specified CORS headers.
+ *
+ * Set origin to `"*"` to allow all origins. Use Next.js's `config.matcher` to
+ * apply the middleware specific URLs only.
+ */
+export const CorsMiddleware = ({
+  middleware,
+  ...options
+}: CorsMiddlewareOptions): NextMiddleware => {
   return async (request, event) => {
     const response =
       middleware !== undefined
