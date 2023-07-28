@@ -31,5 +31,5 @@ export const middleware = withCors(
  * Match only the /api/cors/** path for this demo.
  */
 export const config = {
-  matcher: ["/api/middleware/:path*"]
+  matcher: ["/api/cors/:path*"]
 };
