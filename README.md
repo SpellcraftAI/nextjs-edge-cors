@@ -1,7 +1,29 @@
-### Enable CORS for Next.js Edge
+### CORS for Next.js Edge Runtime
 
-The easiest way to enable CORS is in your Next config, per the
-[docs](https://vercel.com/guides/how-to-enable-cors):
+Easily add CORS to your Edge endpoints.
+
+### Usage
+
+The easiest way to enable CORS is using Middleware:
+
+
+```ts
+// src/middleware.ts
+
+import { CorsMiddleware } from "nextjs-edge-cors";
+
+// Allow all origins.
+export const middleware = CorsMiddleware({
+  origin: "*"
+})
+
+// Match /api/cors/**.
+export const config = {
+  matcher: ["/api/cors/:path*"]
+};
+```
+
+Alternatively, you can apply the headers manually in your Next.js config:
 
 ```js
 // next.config.mjs
@@ -21,36 +43,26 @@ export const headers = () => {
 };
 ```
 
-Alternatively, you can use the `withCors()` Middleware wrapper:
-
-```ts
-// src/middleware.ts
-import { withCors } from "nextjs-edge-cors"
-
-export const middleware = withCors();
-
-export const config = {
-  matcher: ["/api/cors/:path*"]
-};
-```
-
 ### Advanced
 
-You can wrap existing Middleware or pass CORS options to `withCors()`:
+You can wrap existing Middleware and/or pass CORS options to `CorsMiddleware`:
 
 ```ts
-import { withCors } from "nextjs-edge-cors"
+import { CorsMiddleware } from "nextjs-edge-cors"
 
-export const middleware = withCors(
-  otherMiddleware,
-  {
-    /**
-     * Only allow CORS requests from Google.com. Comma separate for multiple
-     * values.
-     */
-    origin: "https://www.google.com"
+export const middleware = CorsMiddleware({
+  origin: "https://www.google.com",
+  // Other CORS options.
+  maxAge: 123456,
+  // Additional middleware.
+  middleware: () => {
+    return NextResponse.next({
+      headers: {
+        "Test-Stacked-Middleware": "PASS"
+      }
+    });
   }
-);
+});
 
 export const config = {
   matcher: ["/api/cors/:path*"]
